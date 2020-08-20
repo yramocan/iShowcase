@@ -213,7 +213,7 @@ import Foundation
         UIView.transition(
             with: containerView,
             duration: 0.5,
-            options: UIViewAnimationOptions.transitionCrossDissolve,
+            options: UIView.AnimationOptions.transitionCrossDissolve,
             animations: { () -> Void in
                 self.containerView.addSubview(self)
         }) { (_) -> Void in
@@ -507,13 +507,13 @@ public extension UIColor {
      - parameter colorString: A string representing the color hex to be parsed
      - returns: A UIColor instance containing the parsed color
      */
-    public static func colorFromHexString(_ colorString: String) -> UIColor {
+    static func colorFromHexString(_ colorString: String) -> UIColor {
         let hex = colorString.trimmingCharacters(
             in: CharacterSet.alphanumerics.inverted)
-        var int = UInt32()
-        Scanner(string: hex).scanHexInt32(&int)
-        let a, r, g, b: UInt32
-        switch hex.characters.count {
+        var int = UInt64()
+        Scanner(string: hex).scanHexInt64(&int)
+        let a, r, g, b: UInt64
+        switch hex.count {
         case 3: // RGB (12-bit)
             (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
         case 6: // RGB (24-bit)
